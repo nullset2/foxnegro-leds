@@ -12,22 +12,25 @@ def home():
 
 @app.route('/turn_on', methods = ['GET'])
 def turn_on():
+    print "Turning on!"
     tel = Telnet('foxnegro.zapto.org')
     tel.write(b'X\n')
     tel.close()
+    return render_template('home.html')
 
 @app.route('/turn_off', methods = ['GET'])
 def turn_off():
+    print "Turning off!"
     tel = Telnet('foxnegro.zapto.org')
     tel.write(b'Y\n')
     tel.close()
+    return render_template('home.html')
 
 @app.after_request
 def add_header(response):
     response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
     response.headers['Cache-Control'] = 'public, max-age=600'
     return response
-
 
 @app.errorhandler(404)
 def page_not_found(error):
